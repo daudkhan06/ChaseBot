@@ -8,7 +8,7 @@ const FILE = process.env.DATA_FILE || path.resolve("data/db.json");
 const DEFAULT = {
   settings: {
     businessName: "Northlight Studio",
-    ownerName: "Daud",
+    ownerName: "Alex",
     currency: "GBP",
     tone: "warm but professional, concise, British English",
     autopilot: false, // false = agent proposes customer-facing actions, owner approves

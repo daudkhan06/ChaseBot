@@ -38,7 +38,7 @@ export function seedData() {
   return {
     settings: {
       businessName: "Northlight Studio",
-      ownerName: "Daud",
+      ownerName: "Alex",
       currency: "GBP",
       tone: "warm but professional, concise, British English",
       autopilot: false,
