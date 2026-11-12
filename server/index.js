@@ -7,7 +7,29 @@ import { extractDraft, runChaseAgent, executeAction } from "./ai.js";
 import { seedData } from "../scripts/seed-data.js";
 
 const app = express();
+app.set("trust proxy", 1); // Render / most hosts sit behind one proxy
 app.use(express.json({ limit: "12mb" }));
+
+// Simple in-memory limits on endpoints that call Claude or PayPal, so a public
+// demo can't be used to burn through API credit.
+const PER_IP_HOUR = Number(process.env.RATE_LIMIT_PER_HOUR || 40);
+const GLOBAL_DAY = Number(process.env.RATE_LIMIT_PER_DAY || 400);
+const hits = new Map();
+let globalHits = { day: "", n: 0 };
+function limit(req, res, next) {
+  const now = Date.now();
+  const day = new Date().toISOString().slice(0, 10);
+  if (globalHits.day !== day) globalHits = { day, n: 0 };
+  const recent = (hits.get(req.ip) || []).filter((t) => now - t < 3_600_000);
+  if (recent.length >= PER_IP_HOUR || globalHits.n >= GLOBAL_DAY) {
+    return res.status(429).json({ error: "Demo limit reached. Please try again later, or run ChaseBot locally (see README)." });
+  }
+  recent.push(now);
+  hits.set(req.ip, recent);
+  globalHits.n++;
+  next();
+}
+app.use(["/api/extract", "/api/invoices", "/api/autopilot/run"], (req, res, next) => (req.method === "POST" ? limit(req, res, next) : next()));
 app.use(express.static(path.resolve("public")));
 
 const wrap = (fn) => (req, res) =>

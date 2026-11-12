@@ -4,7 +4,7 @@
 
 You describe a job in your own words and ChaseBot turns it into a PayPal invoice. When the client pays late, an agent reads that client's payment history and decides what to do next: a friendly nudge, a firmer reminder, splitting the bill into instalments, or handing it back to you to make a call. Everything it sends goes out through PayPal, and it stops as soon as PayPal reports the invoice paid.
 
-> Built for the PayPal AI Hackathon 2026 · [Demo video](#) · [Live demo](#)
+> Built for the PayPal AI Hackathon 2026 · [Demo video](#) · **[Live demo](https://chasebot-xguj.onrender.com/)** (PayPal sandbox)
 
 ---
 
