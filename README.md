@@ -105,6 +105,12 @@ scripts/seed-data.js demo clients with realistic payment histories
 public/             dashboard (HTML/CSS/vanilla JS)
 ```
 
+## Tech Stack 
+
+- HTML, CSS, JavaScript
+- NodeJS with Express
+Libraries: express, @anthropic-ai/sdk (for Claude) and zod (describes the shape of data the AI must return)
+
 ## What's next
 
 - Learn each client's typical payment delay to forecast cash flow
